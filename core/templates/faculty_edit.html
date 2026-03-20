@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Edit Faculty{% endblock %}
+
+{% block content %}
+
+<div class="card p-4">
+
+<h4 class="mb-3">Edit Faculty</h4>
+
+<form method="POST">
+{% csrf_token %}
+
+<label>Name</label>
+<input name="name" class="form-control mb-2" value="{{ faculty.name }}">
+
+<label>Department</label>
+<input name="department" class="form-control mb-2" value="{{ faculty.department }}">
+
+<label>Designation</label>
+<input name="designation" class="form-control mb-2" value="{{ faculty.designation }}">
+
+<button class="btn btn-success mt-2">Save Changes</button>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- 📊 STATS ONLY -->
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="stat-card d-flex justify-content-between align-items-center">
+    <div>
+        <h6>Total Students</h6>
+        <h3>{{ total_students }}</h3>
+    </div>
+    <i class="bi bi-people-fill fs-2"></i>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="stat-card d-flex justify-content-between align-items-center">
+    <div>
+        <h6>Boys</h6>
+        <h3>{{ total_boys }}</h3>
+    </div>
+    <i class="bi bi-gender-male fs-2"></i>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="stat-card d-flex justify-content-between align-items-center">
+    <div>
+        <h6>Girls</h6>
+        <h3>{{ total_girls }}</h3>
+    </div>
+    <i class="bi bi-gender-female fs-2"></i>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="stat-card d-flex justify-content-between align-items-center">
+    <div>
+        <h6>Departments</h6>
+        <h3>{{ total_departments }}</h3>
+    </div>
+    <i class="bi bi-building fs-2"></i>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="stat-card d-flex justify-content-between align-items-center">
+    <div>
+        <h6>Faculty</h6>
+        <h3>{{ teaching_faculty }}</h3>
+    </div>
+    <i class="bi bi-person-badge-fill fs-2"></i>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="stat-card d-flex justify-content-between align-items-center">
+    <div>
+        <h6>Non Teaching</h6>
+        <h3>{{ non_teaching }}</h3>
+    </div>
+    <i class="bi bi-person-workspace fs-2"></i>
+</div>
+</div>
+
+</div>
+
+{% endblock %}

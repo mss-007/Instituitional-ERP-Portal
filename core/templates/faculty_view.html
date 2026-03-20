@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Faculty Details{% endblock %}
+
+{% block content %}
+
+<div class="card p-4">
+
+<h4 class="mb-3">Faculty Details</h4>
+
+<p><strong>Name:</strong> {{ faculty.name }}</p>
+<p><strong>Department:</strong> {{ faculty.department }}</p>
+<p><strong>Designation:</strong> {{ faculty.designation }}</p>
+
+<p class="mt-2">
+    <strong>Type:</strong> 
+    <span style="margin-left: 8px; text-transform: capitalize;">
+        {{ faculty.get_staff_type_display }}
+    </span>
+</p>
+
+<div class="mt-3 d-flex gap-2">
+    <a href="/faculty/edit/{{ faculty.id }}/" class="btn btn-warning btn-sm">
+        Edit
+    </a>
+
+    <a href="/faculty/" class="btn btn-secondary btn-sm">
+        Back
+    </a>
+
+    <a href="/faculty/{{ faculty.id }}/delete/"
+       class="btn btn-danger btn-sm"
+       onclick="return confirm('Delete this faculty?');">
+        Delete
+    </a>
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block title %}Student Full Details{% endblock %}
+
+{% block content %}
+
+<div class="card p-4">
+
+<h3 class="mb-4">{{ student.name|clean }}</h3>
+
+<!-- BASIC -->
+<h5>Basic Information</h5>
+<div class="row">
+    <div class="col-md-4"><b>Roll No:</b> {{ student.roll_no|clean }}</div>
+    <div class="col-md-4"><b>Department:</b> {{ student.department|clean }}</div>
+    <div class="col-md-4"><b>Admission Year:</b> {{ student.admission_year|clean }}</div>
+</div>
+
+<hr>
+
+<!-- PERSONAL -->
+<h5>Personal Details</h5>
+<div class="row">
+    <div class="col-md-4"><b>DOB:</b> {{ student.dob|date:"d-m-Y"|default:"-" }}</div>
+    <div class="col-md-4"><b>Gender:</b> {{ student.gender|clean }}</div>
+    <div class="col-md-4"><b>Blood Group:</b> {{ student.blood_group|clean }}</div>
+    <div class="col-md-4"><b>Religion:</b> {{ student.religion|clean }}</div>
+    <div class="col-md-4"><b>Category:</b> {{ student.category|clean }}</div>
+
+    <div class="col-md-4">
+        <b>Physically Challenged:</b>
+        {{ student.physically_challenged|yesno:"Yes,No" }}
+    </div>
+
+    <div class="col-md-4"><b>Aadhaar:</b> {{ student.aadhaar|clean }}</div>
+</div>
+
+<hr>
+
+<!-- CONTACT -->
+<h5>Contact Information</h5>
+<div class="row">
+    <div class="col-md-4"><b>Phone:</b> {{ student.phone|clean }}</div>
+    <div class="col-md-4"><b>Email:</b> {{ student.email|clean }}</div>
+    <div class="col-md-4"><b>Address:</b> {{ student.permanent_address|clean }}</div>
+</div>
+
+<hr>
+
+<!-- FAMILY -->
+<h5>Family Details</h5>
+<div class="row">
+    <div class="col-md-4"><b>Father Name:</b> {{ student.father_name|clean }}</div>
+    <div class="col-md-4"><b>Mother Name:</b> {{ student.mother_name|clean }}</div>
+    <div class="col-md-4"><b>Father Occupation:</b> {{ student.father_occupation|clean }}</div>
+    <div class="col-md-4"><b>Mother Occupation:</b> {{ student.mother_occupation|clean }}</div>
+    <div class="col-md-4"><b>Father Phone:</b> {{ student.father_phone|clean }}</div>
+    <div class="col-md-4"><b>Mother Phone:</b> {{ student.mother_phone|clean }}</div>
+    <div class="col-md-4"><b>Guardian:</b> {{ student.guardian_name|clean }}</div>
+</div>
+
+<hr>
+
+<!-- ACADEMIC -->
+<h5>Academic Details</h5>
+<div class="row">
+    <div class="col-md-3"><b>10th Year:</b> {{ student.tenth_year|clean }}</div>
+    <div class="col-md-3"><b>10th %:</b> {{ student.tenth_percentage|clean }}</div>
+    <div class="col-md-3"><b>12th Year:</b> {{ student.twelfth_year|clean }}</div>
+    <div class="col-md-3"><b>12th %:</b> {{ student.twelfth_percentage|clean }}</div>
+
+    <div class="col-md-3"><b>Course:</b> {{ student.course|clean }}</div>
+    <div class="col-md-3"><b>Batch:</b> {{ student.batch|clean }}</div>
+
+    <div class="col-md-3">
+        <b>Hosteller:</b>
+        {{ student.hosteller|yesno:"Yes,No" }}
+    </div>
+</div>
+
+<hr>
+
+<!-- ACTION BUTTONS -->
+<!-- ACTION BUTTONS -->
+<div class="d-flex gap-2 mt-3">
+
+    <!-- Back -->
+    <a href="/students/" class="btn btn-secondary btn-sm">
+        Back
+    </a>
+
+    {% if request.user.is_superuser %}
+
+        <!-- Edit -->
+        <a href="/student/{{ student.id }}/edit/" class="btn btn-warning btn-sm">
+            Edit
+        </a>
+
+        <!-- Delete -->
+        <a href="/student/{{ student.id }}/delete/" 
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Delete this student?');">
+            Delete
+        </a>
+
+    {% endif %}
+
+</div>
+{% endblock %}

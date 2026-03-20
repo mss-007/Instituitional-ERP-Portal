@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>ERP System</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+
+/* 🌊 BACKGROUND */
+body{
+    min-height:100vh;
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #e0ecff, #f5f7fb);
+    color:#1e293b;
+}
+
+/* 🔷 SIDEBAR */
+.sidebar{
+    width:240px;
+    height:100vh;
+    position:fixed;
+    background:linear-gradient(180deg, #1e3a8a, #2563eb);
+    color:white;
+    padding:25px 15px;
+    box-shadow:4px 0 20px rgba(0,0,0,0.2);
+    display:flex;
+    flex-direction:column;
+}
+
+.sidebar h4{
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.sidebar a{
+    display:block;
+    color:#e0e7ff;
+    padding:10px 12px;
+    margin-bottom:8px;
+    border-radius:10px;
+    transition:0.3s;
+    text-decoration:none;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.2);
+    color:white;
+    transform:translateX(6px);
+}
+
+/* ✅ ACTIVE MENU */
+.sidebar a.active{
+    background:rgba(255,255,255,0.25);
+    color:white;
+    font-weight:600;
+}
+
+/* 🔻 BOTTOM BUTTONS */
+.sidebar-bottom{
+    margin-top:auto;
+}
+
+.sidebar-bottom .btn{
+    border-radius:8px;
+    transition:0.3s;
+}
+
+.sidebar-bottom .btn:hover{
+    transform:scale(1.03);
+}
+
+/* 🧠 MAIN */
+.main{
+    margin-left:260px;
+    padding:40px;
+}
+
+/* 💎 CARDS */
+.card{
+    background:white;
+    border:none;
+    border-radius:16px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    padding:20px;
+}
+
+/* 📊 STATS */
+.stat-card{
+    background: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
+    color:white;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(37,99,235,0.4);
+    position:relative;
+    overflow:hidden;
+    transition:0.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-5px) scale(1.02);
+    box-shadow:0 15px 35px rgba(37,99,235,0.6);
+}
+
+.stat-card i {
+    opacity: 0.8;
+}
+
+/* TABLE */
+table{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+/* BUTTON */
+.btn{
+    border-radius:8px;
+}
+
+/* SEARCH */
+input.form-control{
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* 👋 GREETING */
+#greeting{
+    font-size:22px;
+    font-weight:600;
+    color:#1e3a8a;
+    margin-bottom:15px;
+}
+
+#studentMenu a{
+    font-size:14px;
+    padding:6px 10px;
+    color:#c7d2fe;
+}
+
+#studentMenu a:hover{
+    background:rgba(255,255,255,0.15);
+    border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<h4>NGMC ERP Panel</h4>
+<hr>
+
+{% if user.groups.all.0.name == "Admin" %}
+
+<a href="{% url 'admin_dashboard' %}" 
+   class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+   Dashboard
+</a>
+
+<!-- STUDENTS DROPDOWN -->
+<div>
+
+<a href="javascript:void(0)" onclick="toggleStudentMenu()" class="d-flex justify-content-between align-items-center">
+    Students
+    <span id="arrow">▼</span>
+</a>
+
+<div id="studentMenu" style="display:none; margin-left:10px;">
+
+    <a href="{% url 'student_list' %}"
+       class="{% if request.resolver_match.url_name == 'student_list' %}active{% endif %}">
+       Student Search
+    </a>
+
+    <a href="{% url 'add_student' %}"
+       class="{% if request.resolver_match.url_name == 'add_student' %}active{% endif %}">
+       Add Student
+    </a>
+
+</div>
+
+</div>
+
+<a href="{% url 'faculty_list' %}"
+   class="{% if request.resolver_match.url_name == 'faculty_list' %}active{% endif %}">
+   Faculty
+</a>
+
+<a href="{% url 'departments' %}"
+   class="{% if request.resolver_match.url_name == 'departments' %}active{% endif %}">
+   Departments
+</a>
+
+<a href="{% url 'export' %}"
+   class="{% if request.resolver_match.url_name == 'export_page' %}active{% endif %}">
+   Export Excel
+</a>
+
+<a href="{% url 'digilocker' %}"
+   class="{% if request.resolver_match.url_name == 'digilocker' %}active{% endif %}">
+   DigiLocker
+</a>
+
+{% endif %}
+
+<!-- 🔻 BOTTOM -->
+<div class="sidebar-bottom">
+
+<a href="{% url 'change_password' %}" 
+   class="btn btn-sm w-100 mb-2"
+   style="background:#0ea5e9; color:white;">
+   Change Password
+</a>
+
+<form action="{% url 'logout' %}" method="POST">
+    {% csrf_token %}
+    <button class="btn w-100 text-white"
+            style="background:linear-gradient(45deg,#ef4444,#dc2626);">
+        Logout
+    </button>
+</form>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main animate__animated animate__fadeIn">
+
+<div id="greeting"></div>
+
+<h3 class="mb-4">{% block title %}{% endblock %}</h3>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% block content %}{% endblock %}
+
+</div>
+
+<!-- GREETING SCRIPT -->
+<script>
+function getGreetingData() {
+    const hour = new Date().getHours();
+
+    if (hour < 12) return "Good Morning 🌤️";
+    if (hour < 17) return "Good Afternoon ☀️";
+    if (hour < 21) return "Good Evening 🌆";
+    return "Good Night 🌙";
+}
+
+const username = "{{ request.user.username }}";
+
+document.getElementById("greeting").innerText =
+    `${getGreetingData()}, ${username}`;
+</script>
+
+<script>
+function toggleStudentMenu() {
+    const menu = document.getElementById("studentMenu");
+    const arrow = document.getElementById("arrow");
+
+    if (menu.style.display === "none") {
+        menu.style.display = "block";
+        arrow.innerText = "▲";
+    } else {
+        menu.style.display = "none";
+        arrow.innerText = "▼";
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block title %}Departments{% endblock %}
+
+{% block content %}
+
+<div class="card dept-card p-4">
+
+<h4 class="mb-4">📊 Departments Overview</h4>
+
+<table class="table table-hover align-middle">
+
+<thead class="table-light">
+<tr>
+<th>Department</th>
+<th class="text-center">Total Students</th>
+<th class="text-center">Boys</th>
+<th class="text-center">Girls</th>
+<th class="text-center">Faculty</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for d in departments %}
+
+<tr>
+
+<td class="fw-semibold">
+    {{ d.name }}
+</td>
+
+<td class="text-center">
+    <a href="/students/?dept={{ d.name }}" class="btn stat-btn btn-primary">
+        {{ d.total_students }}
+    </a>
+</td>
+
+<td class="text-center">
+    <a href="/students/?dept={{ d.name }}&gender=male" class="btn stat-btn btn-info">
+        {{ d.boys }}
+    </a>
+</td>
+
+<td class="text-center">
+    <a href="/students/?dept={{ d.name }}&gender=female" class="btn stat-btn btn-pink">
+        {{ d.girls }}
+    </a>
+</td>
+
+<td class="text-center">
+    <a href="/faculty/?dept={{ d.name }}" class="btn stat-btn btn-dark">
+        {{ d.faculty }}
+    </a>
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="5" class="text-center text-muted py-4">
+    No departments found 😐
+</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- 🎨 STYLES -->
+<style>
+
+/* Card polish */
+.dept-card{
+    border-radius:18px;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(8px);
+}
+
+/* Buttons */
+.stat-btn{
+    min-width:55px;
+    border-radius:10px;
+    font-weight:600;
+    transition:0.2s;
+}
+
+/* Hover pop */
+.stat-btn:hover{
+    transform:scale(1.08);
+}
+
+/* Pink button (because Bootstrap forgot girls exist) */
+.btn-pink{
+    background:#ec4899;
+    color:white;
+    border:none;
+}
+
+.btn-pink:hover{
+    background:#db2777;
+}
+
+/* Table polish */
+table td{
+    vertical-align:middle;
+}
+
+/* Header */
+thead th{
+    font-weight:600;
+    font-size:14px;
+}
+
+/* Row hover glow */
+.table-hover tbody tr:hover{
+    background:#f1f5ff;
+    transition:0.2s;
+}
+
+</style>
+
+{% endblock %}

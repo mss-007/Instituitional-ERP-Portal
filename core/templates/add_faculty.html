@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Add Faculty{% endblock %}
+
+{% block content %}
+
+<div class="card p-4">
+<h4>Add Faculty</h4>
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6">
+<label>Name</label>
+<input name="name" class="form-control mb-3">
+</div>
+
+<div class="col-md-6">
+<label>Department</label>
+<input name="department" class="form-control mb-3">
+</div>
+
+<div class="col-md-6">
+<label>Designation</label>
+<input name="designation" class="form-control mb-3">
+</div>
+
+<div class="col-md-6">
+<label>Staff Type</label>
+<select name="staff_type" class="form-control mb-3">
+    <option value="teaching">Teaching</option>
+    <option value="non_teaching">Non Teaching</option>
+</select>
+</div>
+
+</div>
+
+<!-- ✅ BUTTON FIX -->
+<div class="d-flex justify-content-end mt-3">
+    <button type="submit" class="btn btn-success px-4">
+        Add Faculty
+    </button>
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}
