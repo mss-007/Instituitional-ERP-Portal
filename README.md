@@ -56,9 +56,6 @@ college_erp_final/ │ ├── core/                  # Main app (models, view
 
 1️⃣ Clone the Repository
 
-git clone https://github.com/your-username/your-repo-name.git cd your-repo-name
-
-
 
 2️⃣ Create Virtual Environment
 
